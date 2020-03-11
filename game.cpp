@@ -17,6 +17,7 @@ game::game(){
 }
 
 game:: ~game(){
+  //deleting the board
   for (int i = 0; i < arrRow; ++i){
     delete[] board[i];
   }
@@ -164,7 +165,7 @@ void game::generate(string txtFile){
   }
  }
 }
-
+//boards are now ready
 
 void game::classic(){
   //clearing the buffer rows since it is classic mode
@@ -179,10 +180,60 @@ void game::classic(){
     }
   }
 
+  while(numX != 0){
+
+  }
+
 
 }
 
 void game::doughnut(){
+  //filling the buffer rows with doughnut mode rules
+  for (int i = 1; i < arrRow - 1; ++i){
+    for (int j = 1; j < arrColumn - 1; ++j){
+      //(0,0) of board
+      if ((i == arrRow - 2) && (j == 1)){
+        board[i + 1][j - 1] = board[1][arrColumn - 2];
+      }
+      //(0,1) of board
+      if((i == arrRow - 2) &&(arrColumn - 2 > j) && (j > 1)){
+        board[i + 1][j + 1] = board[1][j + 1];
+        board[i + 1][j] = board [1][j];
+        board[i + 1][j - 1] = board[1][j - 1];
+      }
+      //(0,2) of board
+      if((i == 1) && (j == 1)){
+        board[i - 1][j - 1] = board[arrRow - 2][arrColumn - 2];
+      }
+      //(1,2) of board
+      if((i == 1) && (j > 1) && (arrColumn - 2 > j)){
+        board[i - 1][j - 1] = board[arrRow - 2][j - 1];
+        board[i - 1][j] = board[arrRow - 2][j];
+        board[i - 1][j + 1] = board[arrRow - 2][j + 1];
+      }
+      //(2,2) of board
+      if((i == 1) && (j = arrColumn - 2)){
+        board[i - 1][j + 1] = board[arrRow - 2][1];
+      }
+      //(2,1) of board
+      if((i > 1) && (j < arrRow - 2) && (j == arrColumn - 2)){
+        board[i - 1][j + 1] = board[i - 1][1];
+        board[i][i + 1] = board[i][1];
+        board[i + 1][j + 1] = board[i + 1][1];
+      }
+      //(2,0) of board
+      if((i == arrRow - 2) && (j == arrColumn - 2)){
+        board[i + 1][j + 1] = board[1][1];
+      }
+      //(1,0) of board
+      if ((i == arrRow - 2) && (j < arrColumn - 2) && (j > 1)){
+        board[i + 1][j + 1] = board[1][j + 1];
+        board[i + 1][j] = board[1][j];
+        board[i + 1][j - 1] = board[1][j - 1];
+      }
+
+    }
+  }
 
 }
 
