@@ -3,8 +3,8 @@
 #include <fstream>
 
 
-int x = 1;
-int dash  = 0;
+const char x = 'x';
+const char dash  = '-';
 
 class game{
 public: //all the methods I am using in my game
@@ -37,7 +37,7 @@ private: //all the vars I will be using in my game
           int bufferColumn;
           int randomRow;
           int randomColumn;
-          int **board;
+          char **board;
           int row;
           int column;
           int generation;

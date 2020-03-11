@@ -98,9 +98,9 @@ void game::randGrid(int row, int column, float initialPop){
   bufferColumn = arrColumn + 2;
 
   //making the actual board by dimensions
-  board = new int*[arrRow];
+  board = new char*[arrRow];
   for (int i = 0; i < arrRow; ++i){
-    board[i] = new int[arrColumn];
+    board[i] = new char[arrColumn];
   }
 
   //determining the population within the grid
@@ -110,7 +110,7 @@ void game::randGrid(int row, int column, float initialPop){
     //then fill in with X's with RAND
     for (int i = 0; i < arrRow - 1; ++i){
       for(int j = 0; j < arrColumn -1; ++i){
-        board[i][j] = dash;
+        board[i][j] = '-';
       }
     }
     //going to randomize where the X's are by
@@ -118,8 +118,8 @@ void game::randGrid(int row, int column, float initialPop){
   while(totalPop > 0){
       randomRow = rand() % arrRow + 1; //picking a random row
       randomColumn = rand() % arrColumn + 1; //picking a random column
-      if (board[row][column] != x){
-        board[row][column] = x; //assigning x to that random index
+      if (board[row][column] != 'x'){
+        board[row][column] = 'x'; //assigning x to that random index
         --totalPop; //decrements the value
       }
     }
@@ -146,12 +146,12 @@ void game::generate(string txtFile){
       arrColumn = atoi(line.c_str());
       bufferRow = arrRow;
       bufferColumn = arrColumn;
-      board = new int*[arrRow];
+      board = new char*[arrRow];
       //transferring from text file to array in game
       for (int i = 0; i < arrRow - 1; ++i){
         for (int j = 0; j < arrColumn - 1; ++j){
           if(line[j - 1] == 'x'){
-            board[i][j] = x;
+            board[i][j] = 'x';
           }
           if (line[j - 1] == '-'){
             board[i][j] = dash;
