@@ -25,3 +25,9 @@ http://www.cplusplus.com/reference/string/string/c_str/
 
 //initializing a two dimensional array
 https://www.tutorialspoint.com/cplusplus/cpp_multi_dimensional_arrays.htm
+Data Structures book pg. 113
+
+
+
+//Fixing Errors
+https://stackoverflow.com/questions/24025232/i-am-getting-an-error-in-the-following-program-and-i-am-not-sure-what-is-to-be

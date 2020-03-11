@@ -1,8 +1,14 @@
 #include "game.h"
 #include <iostream>
+#include <cstring>
+#include <locale>
 #include <fstream>
 #include <string>
+#include <streambuf>
 #include <cstdlib>
+#include <stdio.h>
+#include <math.h>
+
 using namespace std;
 
 game::game(){
@@ -11,7 +17,10 @@ game::game(){
 }
 
 game:: ~game(){
-  delete arr[][];
+  for (int i = 0; i < arrRow; ++i){
+    delete[] board[i];
+  }
+  delete[] board;
 }
 
 void game::userPrompt(){
@@ -19,49 +28,50 @@ void game::userPrompt(){
   cout << "HELLO! Would you like to start with a random configuration, or upload a file with a configuration?" << endl;
   cout << "Type r for random or f for file:" << endl;
   char res;
-  cin >> res >> endl;
+  cin >> res;
+  cout << " " << endl;
   //setting up grid based on user response
   if ( res == 'r'){
-      cout >> "Please input the # of rows and # of columns you would like:"
-      int row;
-      int column;
-      cin << row << endl;
-      cin << column << endl;
-      cout >> "Please input the decimal value to represent the initial population" >> endl;
-      cout >> "This value must be between zero and one:" >> endl;
+      cout << "Please input the # of rows and # of columns you would like:" << endl;
+      cin >> row;
+      cout << " " << endl;
+      cin >> column;
+      cout << " " << endl;
+      cout << "Please input the decimal value to represent the initial population" << endl;
+      cout << "This value must be between zero and one:" << endl;
       float initialPop;
-      cin >> initialPop >> endl;
+      cin >> initialPop;
+      cout << " " << endl;
       randGrid(row,column,initialPop);
   }
-  if ( res == "f"){
-    cout >> "Please type the EXACT file name of the ENTIRE text file: "
-    string gridFile;
-    cin << gridFile << endl;
-    importGrid(gridFile);
+  if ( res == 'f'){
+    cout << "Please type the EXACT file name of the ENTIRE text file: " << endl;
+    string txtFile;
+    cin >> txtFile;
+    cout << " " << endl;
+    generate(txtFile);
   }
   //now that we set up our grids, having the user pick a mode
   cout << "Please pick from the following modes: " << endl;
-  cout << "Type one of the following numbers to pick a mode: " <<;
+  cout << "Type one of the following numbers to pick a mode: " << endl;
   cout << "1. Classic Mode  2. Doughnut Mode  3. Mirror Mode" << endl;
   int mode;
-  cin >> mode >> endl;
+  cin >> mode;
+  cout << " " << endl;
   if (mode == 1){
-    emptyBuffer(grid);
     classic();
   }
   if (mode == 2){
-    emptyBuffer(grid);
     doughnut();
   }
   if (mode == 3){
-    emptyBuffer(grid);
     mirror();
   }
 
   cout << "Would you like 1. a brief pause between generations?" << endl;
   cout << "               2. press the ENTER key between generations?" << endl;
   cout << "               3. output generations to a file?" <<endl;
-  cout << "Please type 1, 2, or 3: " <<;
+  cout << "Please type 1, 2, or 3: " << endl;
 
   int pref;
   cin >> pref;
@@ -73,7 +83,7 @@ void game::userPrompt(){
     enter();
   }
   if (pref == 3){
-    export();
+    boardExport();
   }
 
 
@@ -88,9 +98,9 @@ void game::randGrid(int row, int column, float initialPop){
   bufferColumn = arrColumn + 2;
 
   //making the actual board by dimensions
-  board = newint*[arrRow];
+  board = new int*[arrRow];
   for (int i = 0; i < arrRow; ++i){
-    board[i] = new int*[arrColumn];
+    board[i] = new int[arrColumn];
   }
 
   //determining the population within the grid
@@ -106,18 +116,21 @@ void game::randGrid(int row, int column, float initialPop){
     //going to randomize where the X's are by
     //picking a random row and column then filling them in
   while(totalPop > 0){
-      randomRow = RAND() % arrRow + 1; //picking a random row
-      randomColumn = RAND() % arrColumn + 1; //picking a random column
-      if (grid[row][column] != x){
-        grid[row][column] = x; //assigning x to that random index
+      randomRow = rand() % arrRow + 1; //picking a random row
+      randomColumn = rand() % arrColumn + 1; //picking a random column
+      if (board[row][column] != x){
+        board[row][column] = x; //assigning x to that random index
         --totalPop; //decrements the value
       }
+    }
   }
 }
 
-void game::importGrid(string txtFile){
+
+void game::generate(string txtFile){
  //copied this section of code from my hw #1
   string line;
+  ifstream grid(txtFile);
   if(grid.is_open())
   {
     while(!grid.eof())
@@ -133,14 +146,14 @@ void game::importGrid(string txtFile){
       arrColumn = atoi(line.c_str());
       bufferRow = arrRow;
       bufferColumn = arrColumn;
-      board = newint*[arrRow][arrColumn];
+      board = new int*[arrRow];
       //transferring from text file to array in game
       for (int i = 0; i < arrRow - 1; ++i){
         for (int j = 0; j < arrColumn - 1; ++j){
           if(line[j - 1] == 'x'){
             board[i][j] = x;
           }
-          if (line[b-1] == '-'){
+          if (line[j - 1] == '-'){
             board[i][j] = dash;
           }
         }
@@ -148,22 +161,24 @@ void game::importGrid(string txtFile){
 
 
     grid.close();
+  }
+ }
 }
 
-void game::emptyBuffer(int **grid){
+
+void game::classic(){
+  //clearing the buffer rows since it is classic mode
   for (int i = 0; i < arrRow; ++i){
     for( int j = 0; j < arrColumn; ++j){
       if((i == 0) || (i == arrRow - 1)){
-        grid[i][j] = dash;
+        board[i][j] = dash;
       }
-      if((j == 0) || (j == arrColumns -1)){
-        grid[i][j] = dash;
+      if((j == 0) || (j == arrColumn - 1)){
+        board[i][j] = dash;
       }
     }
   }
-}
 
-void game::classic(){
 
 }
 
@@ -183,6 +198,6 @@ void game::enter(){
 
 }
 
-void game::export(){
+void game::boardExport(){
 
 }
