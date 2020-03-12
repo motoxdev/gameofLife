@@ -293,6 +293,7 @@ void game::enter(){
 
 void game::boardExport(string outputFile){
   ofstream out("outputFile");
+  cout << board << endl;
 }
 
 void game::neighbor(){
@@ -319,7 +320,21 @@ void game::neighbor(){
           if((board[i - 1][j]) + (board[i - 1][j + 1]) + (board[i][j + 1]) + (board[i + 1][j]) +
             (board[i + 1][j - 1]) + (board[i][j - 1]) + (board[i - 1][j - 1]) == 1){
               board[i][j] = '-';
+
+          cout << generation << endl;
+          for (int i = 1; i < arrRow; ++i){
+            for(int j = 1; j < arrColumn; ++j){
+              if(board[i][j] == 'x'){
+                cout << "x";
+              }
+              if(board[i][j] == '-'){
+                cout << "-";
+              }
             }
+            cout << " " << endl;
+          }
+          generation++;
+        }
         }
       }
       cout << board << endl;
