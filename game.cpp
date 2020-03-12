@@ -121,7 +121,7 @@ void game::randGrid(int row, int column, double initialPop){
   for(int i = 0; i < arrRow; ++i){
       for(int j = 0; i < arrColumn; ++j){
           cout << board[i][j];
-      }
+    }
   }
 }
 
@@ -157,8 +157,6 @@ void game::generate(string txtFile){
           }
         }
       }
-
-
     grid.close();
   }
  }
@@ -335,8 +333,8 @@ void game::neighbor(){
           }
           generation++;
         }
-        }
       }
+    }
       cout << board << endl;
       if (pref == 1){
         pause(5);
@@ -348,4 +346,14 @@ void game::neighbor(){
         boardExport(outputFile);
       }
     }
+}
+
+void game::copy(){
+  boardTwo = board;
+}
+
+void game::stabilize(){
+  //if the previous grid equals the third simulation
+  //if the second grid equals the fourth simulation
+  //HOW DO I DO THISSSS
 }

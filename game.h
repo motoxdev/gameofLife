@@ -26,6 +26,8 @@ public: //all the methods I am using in my game
   void pause(int seconds);
   void enter();
   void boardExport(std::string outputFile);
+  void copy();
+  void stabilize();
 
 private: //all the vars I will be using in my game
           int numX;
@@ -40,6 +42,7 @@ private: //all the vars I will be using in my game
           int randomRow;
           int randomColumn;
           char **board;
+          char **boardTwo;
           int row;
           int column;
           int generation;

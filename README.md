@@ -39,6 +39,10 @@ https://stackoverflow.com/questions/903221/press-enter-to-continue
 //how to read info to an output txt file
 http://www.cplusplus.com/forum/beginner/77414/
 
+//help me think of what methods I could use for this game
+https://www.chegg.com/homework-help/questions-and-answers/array-based-implementation-john-conway-s-game-life-objectives-practice-using-two-dimension-q28227418
+http://www.cplusplus.com/forum/beginner/63161/
+
 //Fixing Errors
 https://stackoverflow.com/questions/24025232/i-am-getting-an-error-in-the-following-program-and-i-am-not-sure-what-is-to-be
 https://stackoverflow.com/questions/2346806/what-is-a-segmentation-fault
