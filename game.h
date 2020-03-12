@@ -21,9 +21,9 @@ public: //all the methods I am using in my game
   void classic();
   void doughnut();
   void mirror();
-
+  void neighbor();
   //PREFERENCE
-  void pause();
+  void pause(int seconds);
   void enter();
   void boardExport();
 
@@ -31,6 +31,7 @@ private: //all the vars I will be using in my game
           int numX;
           double initialPop;
           int totalPop;
+          int pref;
           int arr;
           int arrRow;
           int arrColumn;

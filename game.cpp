@@ -4,7 +4,10 @@
 #include <locale>
 #include <fstream>
 #include <string>
+#include <chrono>
 #include <streambuf>
+#include <thread>
+#include <time.h>
 #include <cstdlib>
 #include <stdio.h>
 #include <math.h>
@@ -60,46 +63,22 @@ void game::userPrompt(){
   cout << " " << endl;
   if (mode == 1){
     classic();
+    neighbor();
   }
   if (mode == 2){
     doughnut();
+    neighbor();
   }
   if (mode == 3){
     mirror();
+    neighbor();
   }
 
   cout << "Would you like 1. a brief pause between generations?" << endl;
   cout << "               2. press the ENTER key between generations?" << endl;
   cout << "               3. output generations to a file?" <<endl;
   cout << "Please type 1, 2, or 3: " << endl;
-
-  int pref;
   cin >> pref;
-
-  if (pref == 1){
-    pause();
-  }
-  if (pref == 2){
-    enter();
-  }
-  if (pref == 3){
-    boardExport();
-  }
-//the "neighbor" portion of the game
-  while (numX != 0){
-    for (int i = 1; i <= arrRow; ++i){
-      for(int j = 1; j <= arrColumn; ++j){
-        //4 neighbors
-        if((board[i - 1][j]) + (board[i - 1][j + 1]) + (board[i][j + 1]) + (board[i + 1][j + 1]) + (board[i + 1][j]) +
-          (board[i + 1][j - 1]) + (board[i][j - 1]) + (board[i - 1][j - 1]) >= 4){
-            board[i][j] = '-';
-        }
-        
-      }
-    }
-  }
-
-
 }
 
 void game::randGrid(int row, int column, double initialPop){
@@ -294,8 +273,13 @@ void game::mirror(){
   }
 }
 
-void game::pause(){
-
+void game::pause(int numSeconds){
+  //converts time to milliseconds
+  int milli_seconds = 1000 * numSeconds;
+  //storing start time
+  clock_t start_time = clock();
+  //looping till required time is not achieved
+  while(clock() < start_time + milli_seconds);
 }
 
 void game::enter(){
@@ -304,4 +288,44 @@ void game::enter(){
 
 void game::boardExport(){
 
+}
+
+void game::neighbor(){
+  //the "neighbor" portion of the game
+    while (numX != 0){
+      for (int i = 1; i <= arrRow; ++i){
+        for(int j = 1; j <= arrColumn; ++j){
+          //4 neighbors
+          if((board[i - 1][j]) + (board[i - 1][j + 1]) + (board[i][j + 1]) + (board[i + 1][j + 1]) + (board[i + 1][j]) +
+            (board[i + 1][j - 1]) + (board[i][j - 1]) + (board[i - 1][j - 1]) >= 4){
+              board[i][j] = '-';
+          }
+          //3 neighbors
+          if((board[i - 1][j]) + (board[i - 1][j + 1]) + (board[i][j + 1]) + (board[i + 1][j] +
+            (board[i + 1][j - 1]) + (board[i][j - 1]) + (board[i - 1][j - 1]) ==3)){
+              board[i][j] = 'x';
+            }
+          //2 neighbors
+          if((board[i - 1][j]) + (board[i - 1][j + 1]) + (board[i][j + 1]) + (board[i + 1][j + 1]) + (board[i + 1][j]) +
+            (board[i + 1][j - 1]) + (board[i][j - 1]) + (board[i - 1][j - 1] == 2)){
+              //I DON'T KNOW//STAYS THE SAME
+            }
+          //1 neighbor
+          if((board[i - 1][j]) + (board[i - 1][j + 1]) + (board[i][j + 1]) + (board[i + 1][j]) +
+            (board[i + 1][j - 1]) + (board[i][j - 1]) + (board[i - 1][j - 1]) == 1){
+              board[i][j] = '-';
+            }
+        }
+      }
+      cout << board << endl;
+      if (pref == 1){
+        pause(5);
+      }
+      if (pref == 2){
+        enter();
+      }
+      if (pref == 3){
+        boardExport();
+      }
+    }
 }

@@ -30,6 +30,9 @@ Data Structures book pg. 113
 //how to randomize the rows and columns
 http://www.cplusplus.com/reference/cstdlib/rand/
 
+//how to delay time between outputs
+https://www.geeksforgeeks.org/time-delay-c/
+
 
 
 //Fixing Errors
