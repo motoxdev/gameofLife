@@ -61,6 +61,11 @@ void game::userPrompt(){
   int mode;
   cin >> mode;
   cout << " " << endl;
+  cout << "Would you like 1. a brief pause between generations?" << endl;
+  cout << "               2. press the ENTER key between generations?" << endl;
+  cout << "               3. output generations to a file?" <<endl;
+  cout << "Please type 1, 2, or 3: " << endl;
+  cin >> pref;
   if (mode == 1){
     classic();
     neighbor();
@@ -73,12 +78,6 @@ void game::userPrompt(){
     mirror();
     neighbor();
   }
-
-  cout << "Would you like 1. a brief pause between generations?" << endl;
-  cout << "               2. press the ENTER key between generations?" << endl;
-  cout << "               3. output generations to a file?" <<endl;
-  cout << "Please type 1, 2, or 3: " << endl;
-  cin >> pref;
 }
 
 void game::randGrid(int row, int column, double initialPop){
@@ -283,7 +282,10 @@ void game::pause(int numSeconds){
 }
 
 void game::enter(){
-
+  string temp;
+  cout << "Press ENTER to go to the next generation: " << endl;
+  cin >> temp;
+  cout << " " << endl;
 }
 
 void game::boardExport(){
