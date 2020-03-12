@@ -33,9 +33,11 @@ http://www.cplusplus.com/reference/cstdlib/rand/
 //how to delay time between outputs
 https://www.geeksforgeeks.org/time-delay-c/
 
-//how to get enter between each generation 
+//how to get enter between each generation
 https://stackoverflow.com/questions/903221/press-enter-to-continue
 
+//how to read info to an output txt file
+http://www.cplusplus.com/forum/beginner/77414/
 
 //Fixing Errors
 https://stackoverflow.com/questions/24025232/i-am-getting-an-error-in-the-following-program-and-i-am-not-sure-what-is-to-be
