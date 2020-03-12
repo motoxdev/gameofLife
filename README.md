@@ -27,7 +27,13 @@ http://www.cplusplus.com/reference/string/string/c_str/
 https://www.tutorialspoint.com/cplusplus/cpp_multi_dimensional_arrays.htm
 Data Structures book pg. 113
 
+//how to randomize the rows and columns
+http://www.cplusplus.com/reference/cstdlib/rand/
+
 
 
 //Fixing Errors
 https://stackoverflow.com/questions/24025232/i-am-getting-an-error-in-the-following-program-and-i-am-not-sure-what-is-to-be
+https://stackoverflow.com/questions/2346806/what-is-a-segmentation-fault
+//SEGMENTATION ERROR THAT I STILL HAVE YET TO SOLVE
+https://www.geeksforgeeks.org/core-dump-segmentation-fault-c-cpp/

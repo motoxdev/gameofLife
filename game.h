@@ -14,7 +14,7 @@ public: //all the methods I am using in my game
 
   //SETTING UP THE NEEDED INFORMATION
   void userPrompt();
-  void randGrid(int row, int column, float initialPop);
+  void randGrid(int row, int column, double initialPop);
   void generate(std::string txtFile);
 
   //MODES
@@ -29,7 +29,8 @@ public: //all the methods I am using in my game
 
 private: //all the vars I will be using in my game
           int numX;
-          float totalPop;
+          double initialPop;
+          int totalPop;
           int arr;
           int arrRow;
           int arrColumn;

@@ -12,7 +12,7 @@
 using namespace std;
 
 game::game(){
-  totalPop = 0.0;
+  totalPop = 0;
   numX = 0;
 }
 
@@ -40,7 +40,6 @@ void game::userPrompt(){
       cout << " " << endl;
       cout << "Please input the decimal value to represent the initial population" << endl;
       cout << "This value must be between zero and one:" << endl;
-      float initialPop;
       cin >> initialPop;
       cout << " " << endl;
       randGrid(row,column,initialPop);
@@ -86,12 +85,24 @@ void game::userPrompt(){
   if (pref == 3){
     boardExport();
   }
-
+//the "neighbor" portion of the game
+  while (numX != 0){
+    for (int i = 1; i <= arrRow; ++i){
+      for(int j = 1; j <= arrColumn; ++j){
+        //4 neighbors
+        if((board[i - 1][j]) + (board[i - 1][j + 1]) + (board[i][j + 1]) + (board[i + 1][j + 1]) + (board[i + 1][j]) +
+          (board[i + 1][j - 1]) + (board[i][j - 1]) + (board[i - 1][j - 1]) >= 4){
+            board[i][j] = '-';
+        }
+        
+      }
+    }
+  }
 
 
 }
 
-void game::randGrid(int row, int column, float initialPop){
+void game::randGrid(int row, int column, double initialPop){
   //declaring the rows and columns
   arrRow = row;
   arrColumn = column;
@@ -105,12 +116,13 @@ void game::randGrid(int row, int column, float initialPop){
   }
 
   //determining the population within the grid
-  if ((initialPop > 0) && (initialPop < 1)){
-    int totalPop = (arrRow*arrColumn)*(initialPop);
+  if ((initialPop > 0) && (initialPop <= 1)){
+    int answer = arrRow*arrColumn;
+    totalPop = answer*initialPop;
     //now I am going to make entire grid full of dashes,
     //then fill in with X's with RAND
     for (int i = 0; i < arrRow - 1; ++i){
-      for(int j = 0; j < arrColumn -1; ++i){
+      for(int j = 0; j < arrColumn - 1; ++i){
         board[i][j] = '-';
       }
     }
@@ -119,11 +131,16 @@ void game::randGrid(int row, int column, float initialPop){
   while(totalPop > 0){
       randomRow = rand() % arrRow + 1; //picking a random row
       randomColumn = rand() % arrColumn + 1; //picking a random column
-      if (board[row][column] != 'x'){
-        board[row][column] = 'x'; //assigning x to that random index
+      if (board[randomRow][randomColumn] != 'x'){
+        board[randomRow][randomColumn] = 'x'; //assigning x to that random index
         --totalPop; //decrements the value
       }
     }
+  }
+  for(int i = 0; i < arrRow; ++i){
+      for(int j = 0; i < arrColumn; ++j){
+          cout << board[i][j];
+      }
   }
 }
 
@@ -179,12 +196,6 @@ void game::classic(){
       }
     }
   }
-
-  while(numX != 0){
-
-  }
-
-
 }
 
 void game::doughnut(){
@@ -197,9 +208,9 @@ void game::doughnut(){
       }
       //(0,1) of board
       if((i == arrRow - 2) &&(arrColumn - 2 > j) && (j > 1)){
-        board[i + 1][j + 1] = board[1][j + 1];
-        board[i + 1][j] = board [1][j];
-        board[i + 1][j - 1] = board[1][j - 1];
+        board[i + 1][j - 1] = board[i + 1][arrColumn - 2];
+        board[i][j - 1] = board [i][arrColumn - 2];
+        board[i - 1][j - 1] = board[i - 1][arrColumn - 2];
       }
       //(0,2) of board
       if((i == 1) && (j == 1)){
@@ -231,14 +242,56 @@ void game::doughnut(){
         board[i + 1][j] = board[1][j];
         board[i + 1][j - 1] = board[1][j - 1];
       }
-
     }
   }
-
 }
 
 void game::mirror(){
-
+  //filling the buffer rows with mirror mode rules
+  for (int i = 1; i < arrRow - 1; ++i){
+    for (int j = 1; j < arrColumn - 1; ++j){
+      //(0,0) of board
+      if ((i == arrRow - 2) && (j == 1)){
+        board[i + 1][j] = board[i][j];
+        board[i + 1][j - 1] = board[i][j];
+        board[i][j - 1] = board[i][j];
+      }
+      //(0,1) of board
+      if((i == arrRow - 2) && (arrColumn - 2 > j) && (j > 1)){
+        board[i][j - 1] = board[i][j];
+      }
+      //(0,2) of board
+      if((i == 1) && (j == 1)){
+        board[i - 1][j - 1] = board[i][j];
+        board[i - 1][j] = board[i][j];
+        board[i][j - 1] = board[i][j];
+      }
+      //(1,2) of board
+      if((i == 1) && (j > 1) && (arrColumn - 2 > j)){
+        board[i - 1][j] = board[i][j];
+      }
+      //(2,2) of board
+      if((i == 1) && (j = arrColumn - 2)){
+        board[i - 1][j] = board[i][j];
+        board[i - 1][j + 1] = board[i][j];
+        board[i][j + 1] = board[i][j];
+      }
+      //(2,1) of board
+      if((i > 1) && (j < arrRow - 2) && (j == arrColumn - 2)){
+        board[i][j + 1] = board[i][j];
+      }
+      //(2,0) of board
+      if((i == arrRow - 2) && (j == arrColumn - 2)){
+        board[i][j + 1] = board[i][j];
+        board[i + 1][j + 1] = board[i][j];
+        board[i + 1][j] = board[i][j];
+      }
+      //(1,0) of board
+      if ((i == arrRow - 2) && (j < arrColumn - 2) && (j > 1)){
+        board[i + 1][j] = board[i][j];
+      }
+    }
+  }
 }
 
 void game::pause(){
