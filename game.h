@@ -25,7 +25,7 @@ public: //all the methods I am using in my game
   //PREFERENCE
   void pause(int seconds);
   void enter();
-  void boardExport();
+  void boardExport(std::string outputFile);
 
 private: //all the vars I will be using in my game
           int numX;
@@ -43,6 +43,7 @@ private: //all the vars I will be using in my game
           int row;
           int column;
           int generation;
+          std::string outputFile;
 
 
 };

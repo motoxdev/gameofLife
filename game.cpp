@@ -75,6 +75,9 @@ void game::userPrompt(){
     neighbor();
   }
   if (mode == 3){
+    cout << "Please enter the name of the text file you want to output to: " << endl;
+    cin >> outputFile;
+    cout << " " << endl;
     mirror();
     neighbor();
   }
@@ -288,8 +291,8 @@ void game::enter(){
   cout << " " << endl;
 }
 
-void game::boardExport(){
-
+void game::boardExport(string outputFile){
+  ofstream out("outputFile");
 }
 
 void game::neighbor(){
@@ -327,7 +330,7 @@ void game::neighbor(){
         enter();
       }
       if (pref == 3){
-        boardExport();
+        boardExport(outputFile);
       }
     }
 }
